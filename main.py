@@ -8,24 +8,20 @@ import matplotlib.pyplot as plt
 
 iris = load_iris()
 
-# create dataframes
 df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-df['species'] = iris.target # Add the species column (target)
+df['species'] = iris.target
 
 print("Iris Dataset:")
 print(df.head())
 
-# Split the dataset into features (X) and target (y)
-X = df.drop('species', axis=1) # Features (sepal length, sepal width, petal length, petal width)
-y = df['species'] # Target (species: 0 = Setosa, 1 = Versicolor, 2 = Virginica)
+X = df.drop('species', axis=1)
+y = df['species']
 
-# split dataset into training and testing set 70/30
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 classifier = DecisionTreeClassifier()
 classifier.fit(X_train, y_train)
 
-# make predictions on test set
 y_pred = classifier.predict(X_test)
 
 accuracy = metrics.accuracy_score(y_test, y_pred)
